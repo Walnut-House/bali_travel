@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>발리 7박 8일 · 9/14–9/21</title>
+<style>
+  :root{
+    --night:#1C2333;
+    --sunrise:#F2994A;
+    --ubud:#4C7A5A;
+    --ocean:#3E7C99;
+    --paper:#FAF7F0;
+    --card:#FFFFFF;
+    --ink:#2A2B27;
+    --sub:#8A857B;
+    --line:#EAE4D8;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    background:var(--paper);
+    color:var(--ink);
+    font-family:"Apple SD Gothic Neo","Malgun Gothic","Noto Sans KR",system-ui,sans-serif;
+    line-height:1.5;
+    padding-bottom:48px;
+  }
+  .num{font-family:Georgia,"Times New Roman",serif;}
+
+  header{
+    background:linear-gradient(160deg,var(--night) 0%,#2E3A55 55%,var(--sunrise) 130%);
+    color:#FDF9F2;
+    padding:34px 22px 26px;
+  }
+  .eyebrow{font-size:11px;letter-spacing:.22em;opacity:.75;text-transform:uppercase;margin-bottom:10px;}
+  h1{font-size:26px;font-weight:800;letter-spacing:-.01em;line-height:1.25;}
+  .dates{margin-top:6px;font-size:13px;opacity:.85;}
+  .route{margin-top:18px;display:flex;flex-wrap:wrap;gap:6px;align-items:center;font-size:12px;font-weight:600;}
+  .route span{background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.22);padding:4px 10px;border-radius:99px;}
+  .route em{opacity:.6;font-style:normal;}
+  .tip-hint{margin-top:14px;font-size:11.5px;opacity:.8;}
+
+  main{padding:20px 16px 0;max-width:560px;margin:0 auto;}
+  .day{background:var(--card);border:1px solid var(--line);border-radius:16px;margin-bottom:16px;overflow:hidden;}
+  .day-head{display:flex;align-items:baseline;gap:10px;padding:14px 16px 12px;border-bottom:1px solid var(--line);}
+  .day-no{font-size:22px;font-weight:700;line-height:1;color:var(--accent,var(--ubud));}
+  .day-title{font-size:15px;font-weight:800;}
+  .day-date{margin-left:auto;font-size:12px;color:var(--sub);white-space:nowrap;}
+  .stay{font-size:11.5px;color:var(--sub);padding:8px 16px;background:#FCFAF5;border-bottom:1px solid var(--line);}
+  .stay b{color:var(--accent,var(--ubud));font-weight:700;}
+  .trans{display:flex;flex-wrap:wrap;gap:5px;align-items:center;font-size:11px;color:var(--sub);padding:7px 16px;background:#FCFAF5;border-bottom:1px solid var(--line);line-height:1.7;}
+  .tr{display:inline-block;font-size:10px;font-weight:700;border-radius:6px;padding:2px 7px;color:#fff;}
+  .tr-tour{background:#5B6DAE;}
+  .tr-driver{background:#B07B3C;}
+  .tr-grab{background:#00B14F;}
+  .tr-walk{background:#8A857B;}
+  .tr-boat{background:#3E7C99;}
+
+  ul.tl{list-style:none;padding:14px 16px 16px;}
+  .tl li{
+    display:grid;grid-template-columns:52px 12px 1fr;
+    column-gap:10px;position:relative;
+    padding-bottom:14px;cursor:pointer;
+    -webkit-tap-highlight-color:transparent;
+  }
+  .tl li:last-child{padding-bottom:0;}
+  .t{font-size:12px;font-weight:700;color:var(--sub);padding-top:1px;text-align:right;}
+  .t.hl{color:var(--accent,var(--ubud));}
+  .dot{position:relative;}
+  .dot::before{content:"";position:absolute;left:50%;top:5px;width:8px;height:8px;border-radius:50%;transform:translateX(-50%);background:var(--accent,var(--ubud));}
+  .dot::after{content:"";position:absolute;left:50%;top:16px;bottom:-4px;width:2px;transform:translateX(-50%);background:var(--line);}
+  .tl li:last-child .dot::after{display:none;}
+  .what{font-size:14px;font-weight:700;}
+  .note{font-size:12px;color:var(--sub);margin-top:1px;}
+  .badge{display:inline-block;font-size:10.5px;font-weight:700;color:var(--accent,var(--ubud));border:1px solid currentColor;border-radius:99px;padding:1px 7px;margin-left:5px;vertical-align:1px;}
+  .chev{display:inline-block;margin-left:6px;font-size:11px;color:var(--sub);transition:transform .2s ease;}
+  li.open .chev{transform:rotate(90deg);}
+  .detail{
+    display:none;
+    margin-top:8px;
+    font-size:12.5px;
+    color:#55524A;
+    background:#F7F3EA;
+    border-left:3px solid var(--accent,var(--ubud));
+    border-radius:0 10px 10px 0;
+    padding:9px 12px;
+  }
+  li.open .detail{display:block;}
+
+  .theme-night{--accent:var(--sunrise);}
+  .theme-night .day-head{background:linear-gradient(90deg,var(--night) 0%,#37456B 55%,var(--sunrise) 120%);border-bottom:none;}
+  .theme-night .day-no,.theme-night .day-title{color:#FDF9F2;}
+  .theme-night .day-date{color:rgba(253,249,242,.7);}
+  .theme-ubud{--accent:var(--ubud);}
+  .theme-south{--accent:var(--ocean);}
+
+  .panel{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:16px;margin-bottom:16px;}
+  .panel h2{font-size:14px;font-weight:800;margin-bottom:10px;}
+  .panel h2 .num{color:var(--sunrise);margin-right:4px;}
+  ol.check{list-style:none;counter-reset:c;}
+  ol.check li{counter-increment:c;position:relative;padding:0 0 10px 30px;font-size:13px;}
+  ol.check li:last-child{padding-bottom:0;}
+  ol.check li::before{
+    content:counter(c);
+    position:absolute;left:0;top:1px;width:20px;height:20px;border-radius:50%;
+    background:var(--night);color:#fff;font-size:11px;font-weight:700;
+    display:flex;align-items:center;justify-content:center;font-family:Georgia,serif;
+  }
+  ol.check li.done::before{background:var(--ubud);content:"✓";}
+  ol.check b{font-weight:700;}
+  ol.check small{display:block;color:var(--sub);font-size:11.5px;margin-top:1px;}
+  .memo{display:flex;flex-wrap:wrap;gap:6px;}
+  .memo span{font-size:11.5px;font-weight:600;color:var(--ink);background:#F3EEE3;border-radius:99px;padding:5px 11px;}
+  .eats-head{font-size:12px;font-weight:800;color:var(--sub);letter-spacing:.06em;margin:14px 0 8px;}
+  .eats-head:first-of-type{margin-top:0;}
+  ul.eats{list-style:none;}
+  ul.eats>li{padding:0 0 12px 0;font-size:13px;}
+  ul.eats>li:last-child{padding-bottom:2px;}
+  ul.eats b{font-weight:700;}
+  ul.eats .where{display:inline-block;font-size:10.5px;font-weight:700;color:#fff;background:#8A857B;border-radius:6px;padding:1px 7px;margin-left:6px;vertical-align:1px;}
+  ul.eats small{display:block;color:var(--sub);font-size:11.5px;margin-top:2px;}
+  footer{text-align:center;font-size:11px;color:var(--sub);padding:6px 16px 0;}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="eyebrow">Bali · 7 Nights 8 Days</div>
+  <h1>밤에 내려 일출로 시작하는<br>발리 <span class="num">7</span>박 <span class="num">8</span>일</h1>
+  <div class="dates num">2026. 9. 14 (월) 23:00 도착 → 9. 21 (월) 23:00 출발</div>
+  <div class="route">
+    <span>공항</span><em>→</em><span>바뚜르 일출</span><em>→</em><span>우붓 3박</span><em>→</em><span>스미냑 3박</span><em>→</em><span>공항</span>
+  </div>
+  <div class="tip-hint">💡 각 항목을 누르면 상세 설명이 열려요</div>
+  <div class="tip-hint">🚗 이동 표시: <span class="tr tr-tour">투어차량</span> <span class="tr tr-driver">대절기사</span> <span class="tr tr-grab">그랩</span> <span class="tr tr-walk">도보</span> <span class="tr tr-boat">보트</span></div>
+</header>
+
+<main>
+
+  <!-- DAY 1 -->
+  <section class="day theme-night">
+    <div class="day-head">
+      <div class="day-no num">1</div>
+      <div class="day-title">웰컴 투어 → 우붓</div>
+      <div class="day-date">9/14 밤 – 9/15 화</div>
+    </div>
+    <div class="stay">숙소 <b>뻐르띠위 리조트</b> (9/15~18 · 3박 · Jl. Monkey Forest) · 체크인 14시 · 12시부터 짐 보관</div>
+    <div class="trans"><span class="tr tr-tour">투어차량</span> 공항 픽업부터 우붓 도착까지 전 구간 (지프 환승 포함) · 우붓 도착 후 점심·저녁은 <span class="tr tr-walk">도보</span></div>
+    <ul class="tl">
+      <li><div class="t hl">23:00</div><div class="dot"></div><div><div class="what">공항 도착 · 입국<span class="chev">▸</span></div><div class="note">무비자 + All Indonesia QR 준비</div><div class="detail">한국 여권은 관광 30일 무비자(여권 유효기간 6개월+, 귀국편 필요). All Indonesia 통합신고는 출발 72시간 전부터 allindonesia.imigrasi.go.id에서 무료 작성 후 QR 저장. 관광세 15만 루피아는 Love Bali에서 사전 결제. 수속 끝나면 기내 가방에서 바람막이 꺼내두기 — 새벽 산은 담요 빌릴 만큼 추워요.</div></div></li>
+      <li><div class="t">02:00</div><div class="dot"></div><div><div class="what">투어팀 공항 픽업<span class="chev">▸</span></div><div class="note">표준 일정 기준 · 정확한 시각은 판매자 답변으로</div><div class="detail">도착 게이트에서 사인보드 미팅. 캐리어는 투어 차량에 실은 채 하루 종일 동반돼요. 표준이 새벽 2시 픽업이라 대기가 생기면 공항 카페·편의점에서 시간 보내기. 판매자 답변으로 확정된 시각이 우선입니다.</div></div></li>
+      <li><div class="t">04:15</div><div class="dot"></div><div><div class="what">지프 탑승<span class="chev">▸</span></div><div class="note">04:00 베이스 도착 → 4륜 지프 환승</div><div class="detail">낀따마니 베이스까지 차로 2시간 이동 후 4륜 지프로 갈아타요. 등산은 전혀 없고, 오프로드로 덜컹거리며 올라가는 것 자체가 재미예요. 04:45 일출 포인트 도착.</div></div></li>
+      <li><div class="t hl">06:00</div><div class="dot"></div><div><div class="what">바뚜르 일출 <span class="badge">하이라이트</span><span class="chev">▸</span></div><div class="note">05:00 산 위 조식 후 일출 감상</div><div class="detail">해발 1,560m 전망대에서 화산 호수 위로 뜨는 해를 봐요. 일출 전 산 위에서 조식(계란·빵·바나나·따뜻한 커피/차)이 나오고, 9월은 건기라 일출 성공률이 높은 시기. 긴팔+바람막이 필수, 새벽 기온이 한 자릿수까지 떨어질 수 있어요.</div></div></li>
+      <li><div class="t">07:30</div><div class="dot"></div><div><div class="what">블랙라바<span class="chev">▸</span></div><div class="note">검은 용암 벌판 · 08:15까지 촬영</div><div class="detail">과거 분화 때 흘러내린 용암이 굳은 검은 벌판이에요. 지프 위 점프샷, 보닛샷 등 가이드가 인생샷을 찍어주는 공식 포토타임 — 아침 햇살에 검은 지형과 바뚜르산이 배경으로 깔려 사진이 정말 잘 나와요.</div></div></li>
+      <li><div class="t">09:00</div><div class="dot"></div><div><div class="what">아카사 카페 · 커피 농장<span class="chev">▸</span></div><div class="note">화산 호수 뷰 · 10:30 우붓 출발</div><div class="detail">분화구 능선 위 카페에서 바뚜르산과 호수 파노라마를 보며 커피 한잔. 커피 농장에서 루왁 커피 시음도 포함돼 있어요(2일차에 농장 또 갈 필요 없음).</div></div></li>
+      <li><div class="t">11:30</div><div class="dot"></div><div><div class="what">우붓 도착 · 짐 보관<span class="chev">▸</span></div><div class="note">11:30~12:00 뻐르띠위 도착</div><div class="detail">프런트에 "Can I leave my luggage before check-in?" 하면 보관표를 줘요. 미리 메시지로 도착 시간을 알려뒀다면 방이 준비되는 대로 얼리 체크인될 수도 있어요.</div></div></li>
+      <li><div class="t">12:30</div><div class="dot"></div><div><div class="what">가벼운 점심<span class="chev">▸</span></div><div class="note">몽키포레스트 거리 카페</div><div class="detail">호텔 문 앞이 우붓 메인 거리라 카페·와룽이 즐비해요. 밤샘 후라 무겁지 않게, 나시고렝이나 스무디볼 정도로 가볍게.</div></div></li>
+      <li><div class="t">14:00</div><div class="dot"></div><div><div class="what">체크인 · 낮잠<span class="chev">▸</span></div><div class="note">오후 일정 없음, 최대한 빨리 눕기</div><div class="detail">이 낮잠이 여행 전체 컨디션을 결정해요. 저녁까지 3~4시간은 자야 2일차부터 쌩쌩합니다. 알람 맞추고 푹 주무세요.</div></div></li>
+      <li><div class="t">19:00</div><div class="dot"></div><div><div class="what">저녁 가볍게<span class="chev">▸</span></div><div class="note">우붓 시장 산책 정도만</div><div class="detail">몽키포레스트 거리 따라 북쪽으로 10분 걸으면 우붓 시장·왕궁. 야시장 분위기 구경하고 저녁 먹고 일찍 복귀 — 내일부터 본게임이니 일찍 취침이 정답.</div></div></li>
+    </ul>
+  </section>
+
+  <!-- DAY 2 -->
+  <section class="day theme-ubud">
+    <div class="day-head">
+      <div class="day-no num">2</div>
+      <div class="day-title">우붓 핵심 (개인 투어)</div>
+      <div class="day-date">9/16 수</div>
+    </div>
+    <div class="stay">숙소 <b>뻐르띠위 리조트</b> · 개인 투어 차량 최대 11시간 (한국어 가이드) · 입장료 별도 현금 준비</div>
+    <div class="trans"><span class="tr tr-tour">투어차량</span> 09:00 픽업 ~ 18:15 저녁 식당까지 전용 차량 · 레공 댄스와 귀가는 <span class="tr tr-walk">도보</span> 10분</div>
+    <ul class="tl">
+      <li><div class="t">09:00</div><div class="dot"></div><div><div class="what">투어 차량 픽업<span class="chev">▸</span></div><div class="note">뻐르띠위 앞 · 전용 차량 시작</div><div class="detail">차량당 가격 개인투어라 오늘 하루 우리 전용이에요. 입장료는 미포함이라 현금 준비: 띠르따 음뿔 7.5만 + 알라스 하룸 5만 + 스윙·집라인(선택, 15~40만/인) + 띠부마나 2만 + 몽키포레스트 10만 + 레공 10만 루피아.</div></div></li>
+      <li><div class="t">09:40</div><div class="dot"></div><div><div class="what">띠르따 음뿔 사원<span class="chev">▸</span></div><div class="note">성수 정화 의식 · 오전이 한산</div><div class="detail">천 년 넘게 성수가 솟는 샘 사원. 믈루캇(정화의식)에 참여하려면 젖어도 되는 옷 입고 가서 수도꼭지 아래에서 물 맞으면 돼요 — 갈아입을 옷·방수팩 지참, 로커 있음. 사롱은 입구에서 무료 대여. 구경만 해도 충분히 아름다워요.</div></div></li>
+      <li><div class="t">11:00</div><div class="dot"></div><div><div class="what">알라스 하룸 <span class="badge">스윙·집라인</span><span class="chev">▸</span></div><div class="note">스윙 + 집라인 + 점심 · 뜨갈랄랑 논 전망</div><div class="detail">뜨갈랄랑 계단식 논 비탈의 액티비티 파크. 입장 후 스윙·집라인·스카이바이크를 골라 현장 결제로 타요. 스윙은 높이별 15~30만 루피아, 나풀거리는 드레스 대여해서 찍는 게 국룰이고 직원들이 촬영 달인이에요. 점심은 단지 안에서 해결(3시간 체류).</div></div></li>
+      <li><div class="t">14:00</div><div class="dot"></div><div><div class="what">띠부마나 폭포<span class="chev">▸</span></div><div class="note">수영 가능한 폭포</div><div class="detail">물줄기 아래에서 수영할 수 있는 아담한 폭포. 수영할 거면 수영복을 안에 입고 가세요. 주차장에서 계단 10분 내려가고, 입장 2만 루피아.</div></div></li>
+      <li><div class="t">16:00</div><div class="dot"></div><div><div class="what">몽키 포레스트<span class="chev">▸</span></div><div class="note">17시 마감 · 1시간이면 충분</div><div class="detail">수백 마리 원숭이가 사는 원시림 보호구역, 이끼 낀 고대 사원이 숨어 있어요. 규칙: 먹을 것 소지 금지, 선글라스·모자는 가방에, 원숭이와 눈 오래 마주치지 않기. 폰은 스트랩이나 두 손으로. 입장 10만 루피아.</div></div></li>
+      <li><div class="t">17:10</div><div class="dot"></div><div><div class="what">짬뿌한 릿지 워크<span class="chev">▸</span></div><div class="note">해질녘 능선 산책 · 차량 대기</div><div class="detail">풀 덮인 능선 양쪽으로 초록 계곡이 펼쳐지는 무료 산책로. 평탄해서 슬리퍼도 OK, 왕복 40분~1시간. 해질녘 금빛 햇살이 능선에 깔리는 이 시간이 가장 예뻐요.</div></div></li>
+      <li><div class="t">18:15</div><div class="dot"></div><div><div class="what">저녁 식사<span class="chev">▸</span></div><div class="note">우붓 왕궁 근처 · 차량 마무리</div><div class="detail">왕궁·시장 주변이 맛집 밀집 구역이에요. 공연 30분 전까지 여유 있게 식사하고, 여기서 오늘 차량 투어 종료.</div></div></li>
+      <li><div class="t">19:30</div><div class="dot"></div><div><div class="what">레공 댄스<span class="chev">▸</span></div><div class="note">우붓 왕궁 공연 · 종료 후 도보 10분 복귀</div><div class="detail">발리 전통 궁중 무용(유네스코 등재). 손끝 떨림과 눈동자 움직임까지 안무인 섬세한 춤을 가믈란 라이브 연주에 맞춰 봐요. 티켓 10만 루피아 현장 구매, 30분 일찍 가면 좋은 자리. 공연 후 몽키포레스트 거리 따라 직진 10분이면 숙소.</div></div></li>
+    </ul>
+  </section>
+
+  <!-- DAY 3 -->
+  <section class="day theme-ubud">
+    <div class="day-head">
+      <div class="day-no num">3</div>
+      <div class="day-title">우붓 올데이 액티비티</div>
+      <div class="day-date">9/17 목</div>
+    </div>
+    <div class="stay">숙소 <b>뻐르띠위 리조트</b> · 올데이 투어 11시간 (한국어 가이드 · 조식·점심·입장료·촬영 포함) · 드랍: 베벡 벵일 앞</div>
+    <div class="trans"><span class="tr tr-tour">투어차량</span> 08:00 픽업 ~ 18:00 베벡 벵일 드랍까지 · 저녁 후 귀가는 <span class="tr tr-walk">도보</span> 8~10분 (발마사지도 가는 길)</div>
+    <ul class="tl">
+      <li><div class="t">08:00</div><div class="dot"></div><div><div class="what">투어 픽업<span class="chev">▸</span></div><div class="note">뻐르띠위 앞 · 속건 옷 입고 출발</div><div class="detail">챙길 것: 수영복(아침부터 착용 추천), 갈아입을 옷 1벌, 방수팩, 수건(크레티야 대여 여부 답변 확인), 선크림. 오늘은 젖고 더러워지는 날이라 아끼는 옷은 금지.</div></div></li>
+      <li><div class="t hl">09:30</div><div class="dot"></div><div><div class="what">정글 ATV <span class="badge">액티비티</span><span class="chev">▸</span></div><div class="note">오프로드 · 흙탕물 각오</div><div class="detail">열대 우림, 논, 진흙 터널, 전통 마을을 누비는 오프로드 트레일. 흙탕물이 얼굴까지 튀니 콘택트렌즈보다 안경 추천. 싱글(1인 1대)/탠덤(2인 1대)은 예약 옵션에서 선택.</div></div></li>
+      <li><div class="t">11:00</div><div class="dot"></div><div><div class="what">발리니즈 조식<span class="chev">▸</span></div><div class="note">투어 포함</div><div class="detail">ATV 후 발리 현지식 아침. 투어비에 포함이라 추가 지출 없어요.</div></div></li>
+      <li><div class="t hl">12:30</div><div class="dot"></div><div><div class="what">아융강 래프팅 <span class="badge">액티비티</span><span class="chev">▸</span></div><div class="note">정글 계곡 급류 · 방수팩 필수</div><div class="detail">발리에서 가장 긴 아융강의 급류를 정글과 절벽 사이로 내려가요. 까다롭지만 안전한 흐름이라 초보자도 OK, 안전 브리핑 후 진행. 폰은 방수팩에 넣고 목에 걸면 물속 사진도 찍을 수 있어요.</div></div></li>
+      <li><div class="t">14:30</div><div class="dot"></div><div><div class="what">발리니즈 런치 뷔페<span class="chev">▸</span></div><div class="note">투어 포함 · 식후 샤워·환복</div><div class="detail">래프팅 종료 지점에서 샤워하고 마른 옷으로 갈아입은 뒤 뷔페 점심. 여기서부터는 깨끗한 몸으로 다녀요.</div></div></li>
+      <li><div class="t hl">16:00</div><div class="dot"></div><div><div class="what">크레티야 선셋 <span class="badge">마무리 휴양</span><span class="chev">▸</span></div><div class="note">논뷰 인피니티풀 · 수영복 지참</div><div class="detail">알라스 하룸 안의 논뷰 풀클럽. 어제는 밥 먹으러 들른 곳이지만 오늘은 인피니티풀에 몸 담그고 계단식 논 위로 지는 해를 보는 마무리 코스예요. 지친 근육에 풀 + 선셋 조합이 최고의 보상.</div></div></li>
+      <li><div class="t">18:00</div><div class="dot"></div><div><div class="what">드랍: 베벡 벵일 앞<span class="chev">▸</span></div><div class="note">숙소 대신 식당 앞 하차</div><div class="detail">판매자에게 요청해둔 대로 저녁 식당 앞에서 내려요. 우붓 들어가는 길목이라 동선 손해 없음.</div></div></li>
+      <li><div class="t">18:15</div><div class="dot"></div><div><div class="what">저녁: 베벡 벵일<span class="chev">▸</span></div><div class="note">우붓 명물 크리스피 덕 · 식후 도보 복귀</div><div class="detail">1990년부터 이어진 오리구이 원조집 "더티덕". 논을 낀 정원의 발리식 정자에 앉아 먹는데 저녁엔 등불이 켜져 분위기가 좋아요. 시그니처는 크리스피 덕. 식후 하노만 거리 따라 8~10분 걸으면 숙소.</div></div></li>
+      <li><div class="t">20:30</div><div class="dot"></div><div><div class="what">(선택) 발마사지<span class="chev">▸</span></div><div class="note">가는 길에 가볍게 · 밤 10시까지</div><div class="detail">액티비티로 뻐근하면 귀갓길에 60분 발마사지(10~15만 루피아). 몽키포레스트 거리에 밤 10시까지 하는 곳이 많아 예약 없이 들어가면 돼요.</div></div></li>
+    </ul>
+  </section>
+
+  <!-- DAY 4 -->
+  <section class="day theme-south">
+    <div class="day-head">
+      <div class="day-no num">4</div>
+      <div class="day-title">남부 이동 · 풀빌라 시작</div>
+      <div class="day-date">9/18 금</div>
+    </div>
+    <div class="stay">숙소 <b>스미냑 에어비앤비 풀빌라</b> (9/18~21 · 3박 · 까유 아야 인근) · 15시 체크인 · 차량 대절 이동</div>
+    <div class="trans"><span class="tr tr-driver">대절기사</span> 10:00~15:00 체크아웃→따나롯→짱구→빌라 (짐은 트렁크) · 15시 빌라에서 차량 종료, 이후 뽀테토 헤드·저녁은 <span class="tr tr-walk">도보</span> 또는 <span class="tr tr-grab">그랩</span></div>
+    <ul class="tl">
+      <li><div class="t">10:00</div><div class="dot"></div><div><div class="what">뻐르띠위 체크아웃 · 남부 이동<span class="chev">▸</span></div><div class="note">캐리어는 차량 트렁크에</div><div class="detail">대절 차량으로 이동(9/16 판매자에 추가 예약 문의 중). 캐리어는 트렁크에 두고 들를 때마다 귀중품 가방만 들고 내리면 돼요. 전날 밤 빌라 호스트에게 "내일 15시 도착"이라고 미리 알려두기.</div></div></li>
+      <li><div class="t">11:30</div><div class="dot"></div><div><div class="what">따나롯 사원<span class="chev">▸</span></div><div class="note">바다 위 사원 · 낮 방문 1시간</div><div class="detail">파도가 사원 바위를 감싸는 발리 대표 해상 사원. 석양 명소로 유명하지만 낮에는 사람이 적어 오히려 여유로워요. 사원 내부는 힌두교도만 입장, 관광객은 외곽 전망 포인트에서 관람. 입장 7.5만 루피아.</div></div></li>
+      <li><div class="t">13:00</div><div class="dot"></div><div><div class="what">짱구 카페 점심<span class="chev">▸</span></div><div class="note">브런치 카페 밀집 지역</div><div class="detail">서퍼 감성 카페들이 몰린 동네. 스무디볼, 아보카도 토스트, 수제버거 같은 브런치가 유명해요. 따나롯에서 짱구 지나 스미냑으로 내려가는 길목이라 동선이 자연스러워요.</div></div></li>
+      <li><div class="t hl">15:00</div><div class="dot"></div><div><div class="what">빌라 체크인 <span class="badge">풀빌라 시작</span><span class="chev">▸</span></div><div class="note">짐 풀고 프라이빗 풀 오후</div><div class="detail">차량 진입은 06~18시 가능이라 빌라 앞까지 들어가요. 체크인하고 바로 프라이빗 풀 타임 — 에어비앤비 풀빌라 로망의 그 장면이 여기서 시작. 호스트에게 와이파이·에어컨·풀 사용법 안내받아두기.</div></div></li>
+      <li><div class="t">17:30</div><div class="dot"></div><div><div class="what">뽀테토 헤드 석양<span class="chev">▸</span></div><div class="note">발리 대표 선셋 비치클럽</div><div class="detail">빌라에서 도보 15~20분 또는 그랩 5분. 데이베드·빈백은 최소 주문 금액이 있지만 무료 스탠딩 존과 바 자리도 충분해요. 칵테일 한 잔 들고 해변 위로 지는 해를 보는 게 스미냑의 대표 장면.</div></div></li>
+      <li><div class="t">19:30</div><div class="dot"></div><div><div class="what">스미냑 저녁<span class="chev">▸</span></div><div class="note">까유 아야 맛집 거리</div><div class="detail">빌라에서 걸어서 3~5분이면 라 파벨라 등 유명 맛집·바가 늘어선 까유 아야 "잇 스트리트". 매일 밤 골라 먹는 재미가 있어요.</div></div></li>
+    </ul>
+  </section>
+
+  <!-- DAY 5 -->
+  <section class="day theme-south">
+    <div class="day-head">
+      <div class="day-no num">5</div>
+      <div class="day-title">스미냑 힐링 데이 (자유)</div>
+      <div class="day-date">9/19 토</div>
+    </div>
+    <div class="stay">숙소 <b>스미냑 풀빌라</b> · 온전한 자유일정 — 아래는 추천 코스일 뿐, 당일 기분대로 넣고 빼기</div>
+    <div class="trans">온종일 <span class="tr tr-walk">도보</span> — 전부 빌라 도보권 코스 · 걷기 싫을 땐 <span class="tr tr-grab">그랩</span> 5분이면 충분</div>
+    <ul class="tl">
+      <li><div class="t">오전</div><div class="dot"></div><div><div class="what">늦잠 · 빌라 풀 아침<span class="chev">▸</span></div><div class="note">여행 첫 늦잠 · 알람 없음</div><div class="detail">매일 새벽같이 움직였으니 오늘은 리셋 데이예요. 호스트 조식 서비스가 있으면 풀사이드에서, 없으면 근처 베이커리에서 테이크아웃해 와서 풀 앞에서 느긋하게. 오전 내내 수영과 뒹굴기만 해도 성공.</div></div></li>
+      <li><div class="t">11:30</div><div class="dot"></div><div><div class="what">브런치: 시스터필즈<span class="chev">▸</span></div><div class="note">스미냑 브런치 대표 · 도보 5~10분</div><div class="detail">호주식 브런치의 성지 Sisterfields. 리코타 팬케이크, 스매시드 아보가 시그니처예요. 웨이팅이 있으면 주변에 카페가 널려 있으니 발길 닿는 곳으로 — 이날은 뭘 먹어도 정답이에요.</div></div></li>
+      <li><div class="t">13:00</div><div class="dot"></div><div><div class="what">김수(Kim Soo) 구경<span class="chev">▸</span></div><div class="note">라탄·홈웨어 소품숍 · 포토스팟</div><div class="detail">하얀 감성 인테리어의 소품숍+카페. 라탄 가방, 홈웨어, 도자기 등 발리 감성 기념품 사기 좋은 곳이고 매장 자체가 포토스팟이라 구경만 해도 재밌어요.</div></div></li>
+      <li><div class="t">14:00</div><div class="dot"></div><div><div class="what">스미냑 비치 선베드<span class="chev">▸</span></div><div class="note">빈백에 누워 바다 멍</div><div class="detail">해변 빈백·파라솔 대여는 5만 루피아 안팎(음료 시키면 무료인 곳도). 파도 구경하며 낮잠이 이날의 메인 이벤트. 몸이 근질거리면 이 해변에서 초보 서핑 강습(2시간, 35~50만 루피아)도 바로 가능해요 — 스미냑·레기안 파도가 입문용으로 유명해요.</div></div></li>
+      <li><div class="t hl">16:00</div><div class="dot"></div><div><div class="what">스파 풀코스 <span class="badge">힐링</span><span class="chev">▸</span></div><div class="note">마사지 + 스크럽 + 플라워 배스</div><div class="detail">힐링 데이의 정점. 발리니즈 마사지에 보디 스크럽, 꽃잎 목욕까지 이어지는 패키지(90~120분, 30~60만 루피아)가 스미냑 스파의 정석이에요. 전날 왓츠앱 예약이면 충분하고, 액티비티 3일의 피로를 여기서 완전히 리셋.</div></div></li>
+      <li><div class="t">18:00</div><div class="dot"></div><div><div class="what">꾸데따 선셋<span class="chev">▸</span></div><div class="note">걸어가는 비치클럽 · 일몰 18:10</div><div class="detail">까유 아야 해변 바로 앞의 원조 비치클럽 Ku De Ta. 어제의 뽀테토 헤드가 힙한 파티 무드라면 여긴 차분하고 클래식한 분위기라 힐링 데이와 결이 맞아요. 빌라에서 도보 10분 안팎.</div></div></li>
+      <li><div class="t">19:30</div><div class="dot"></div><div><div class="what">분위기 있는 저녁<span class="chev">▸</span></div><div class="note">오늘은 좀 좋은 곳으로</div><div class="detail">쉬는 날 마무리는 근사하게 — 마마산(Mama San, 모던 아시안)이나 라 루치올라(La Lucciola, 해변 이탈리안) 같은 스미냑 대표 레스토랑 추천. 당일 왓츠앱 예약으로도 보통 가능해요.</div></div></li>
+      <li><div class="t">21:30</div><div class="dot"></div><div><div class="what">나이트 스윔<span class="chev">▸</span></div><div class="note">프라이빗 풀의 밤</div><div class="detail">조명 켠 풀에서 마무리 수영. 풀빌라 잡은 보람이 가장 크게 느껴지는 시간이에요.</div></div></li>
+    </ul>
+  </section>
+
+  <!-- DAY 6 -->
+  <section class="day theme-south">
+    <div class="day-head">
+      <div class="day-no num">6</div>
+      <div class="day-title">울루와뚜</div>
+      <div class="day-date">9/20 일</div>
+    </div>
+    <div class="stay">숙소 <b>스미냑 풀빌라</b> · 울루와뚜 선셋 투어 5.5시간 (한국어 가이드 · 사원 입장권+께짝 1부 티켓 포함)</div>
+    <div class="trans"><span class="tr tr-tour">투어차량</span> 14:00 픽업 ~ 21:00 드랍까지 · 오전 자유 시간은 <span class="tr tr-walk">도보</span> · 21시 귀가는 픽업포인트(50m) 하차</div>
+    <ul class="tl">
+      <li><div class="t">오전</div><div class="dot"></div><div><div class="what">빌라 · 스미냑 자유<span class="chev">▸</span></div><div class="note">풀·해변 여유 (원하면 믈라스티 원정)</div><div class="detail">14시 픽업 전까지 완전 자유. 빌라 풀에서 뒹굴거나 스미냑 해변 산책 추천. 남부 해변(믈라스티)이 아쉬우면 5일차 자유일에 다녀오는 옵션으로 남겨뒀어요.</div></div></li>
+      <li><div class="t">12:30</div><div class="dot"></div><div><div class="what">점심<span class="chev">▸</span></div><div class="note">까유 아야 거리 · 든든하게</div><div class="detail">오늘 저녁이 21시경으로 늦어지는 날이라 점심을 든든히 먹어두는 게 좋아요. 투어 저녁이 없으니 부담 없이.</div></div></li>
+      <li><div class="t">14:30</div><div class="dot"></div><div><div class="what">투어 픽업<span class="chev">▸</span></div><div class="note">문의로 시각 재확인 · 빌라 링크 전달</div><div class="detail">상품 표기 02:30은 오후 2시 30분이에요(자동 번역 오류). 께짝 1부(17:30) 티켓 확보를 위해 이 시간에 출발해요. 예약 시 한국어 가이드 지정 + 픽업 장소로 빌라 구글맵 링크 전달. 사원 방문이 있으니 어깨·무릎 가리는 복장이 무난(사롱은 현장 제공).</div></div></li>
+      <li><div class="t">15:30</div><div class="dot"></div><div><div class="what">커피 농장<span class="chev">▸</span></div><div class="note">무료 포함 스탑 · 짧게</div><div class="detail">루왁 커피 시음 스탑인데 1일차에 이미 경험했으니 가볍게 지나가면 돼요. 가이드에게 "짧게 부탁해요" 해도 전혀 문제없어요.</div></div></li>
+      <li><div class="t">16:00</div><div class="dot"></div><div><div class="what">울루와뚜 사원<span class="chev">▸</span></div><div class="note">70m 절벽 위 사원 · 원숭이 주의</div><div class="detail">절벽 능선 산책로에서 보는 바다 뷰가 압권. 원숭이가 폰·선글라스·모자를 낚아채는 걸로 악명 높으니 손에 든 것 최소화, 주머니 지퍼 잠그기. 입장권은 투어 포함.</div></div></li>
+      <li><div class="t hl">17:30</div><div class="dot"></div><div><div class="what">께짝 1부 (석양 공연) <span class="badge">하이라이트</span><span class="chev">▸</span></div><div class="note">절벽 원형극장 · 일몰 18:10</div><div class="detail">여행의 클라이맥스. 수십 명이 악기 없이 목소리로만 리듬을 만드는 불춤이 절벽 위에서 펼쳐지고, 공연 중에 등 뒤 바다로 해가 져요. 1부가 바로 이 석양 세션 — 티켓은 투어에 포함돼 있어 가이드가 자리까지 안내해줘요.</div></div></li>
+      <li><div class="t">19:30</div><div class="dot"></div><div><div class="what">스미냑 복귀 출발<span class="chev">▸</span></div><div class="note">약 1.5시간 · 저녁 옵션 선택</div><div class="detail">배고프면 가이드에게 "복귀 전에 근처(Single Fin 등)에서 저녁 먹고 가자"고 요청하는 옵션도 있어요. 전용 차량이라 유연해요.</div></div></li>
+      <li><div class="t">21:00</div><div class="dot"></div><div><div class="what">늦은 저녁 · 복귀<span class="chev">▸</span></div><div class="note">픽업포인트 하차 · 50m 도보</div><div class="detail">스미냑으로 바로 왔다면 라 파벨라처럼 밤늦게까지 하는 곳에서 늦은 저녁. 내일이 마지막 날이니 짐 정리 살짝 해두면 편해요.</div></div></li>
+    </ul>
+  </section>
+
+  <!-- DAY 7 -->
+  <section class="day theme-night">
+    <div class="day-head">
+      <div class="day-no num">7</div>
+      <div class="day-title">마지막 하루 → 출국</div>
+      <div class="day-date">9/21 월</div>
+    </div>
+    <div class="stay">발리 <b>23:00 출발</b> → 인천 익일 아침 · 빌라 짐 보관은 18시까지 (17시 픽업으로 여유)</div>
+    <div class="trans">시내 점심·쇼핑·스파는 <span class="tr tr-walk">도보</span> · 17:00 짐 픽업 후 짐바란행과 19:45 공항행은 <span class="tr tr-grab">그랩</span> 두 번</div>
+    <ul class="tl">
+      <li><div class="t">오전</div><div class="dot"></div><div><div class="what">수영장 · 해변 여유<span class="chev">▸</span></div><div class="note">마지막 물놀이</div><div class="detail">프라이빗 풀에서 느긋한 마지막 아침. 체크아웃 전까지 빌라를 마음껏 누리세요.</div></div></li>
+      <li><div class="t">11:30</div><div class="dot"></div><div><div class="what">체크아웃 · 짐 보관<span class="chev">▸</span></div><div class="note">보관은 18시까지 가능</div><div class="detail">짐 맡기고 몸만 가볍게. 보관 마감이 18시라 오후 일정 후 17시에 픽업하면 1시간 여유가 있어요.</div></div></li>
+      <li><div class="t">12:30</div><div class="dot"></div><div><div class="what">점심 · 스미냑 쇼핑<span class="chev">▸</span></div><div class="note">까유 아야 부티크 거리</div><div class="detail">빌라 앞 잇 스트리트에서 점심 먹고 부티크·편집숍 쇼핑. 기념품은 커피(루왁·발리 원두), 코코넛 제품, 라탄 가방이 인기. 대량 기념품은 크리스나 매장이 저렴해요.</div></div></li>
+      <li><div class="t">14:30</div><div class="dot"></div><div><div class="what">스파 2시간 + 샤워<span class="chev">▸</span></div><div class="note">비행 전 개운하게</div><div class="detail">샤워 시설 있는 스파로 사전 예약 필수("공항 가기 전 샤워 가능한가요?" 확인). 2시간 발리니즈 마사지 + 샤워로 몸 리셋하고 마른 옷으로 갈아입으면 밤 비행이 훨씬 편해요.</div></div></li>
+      <li><div class="t">17:00</div><div class="dot"></div><div><div class="what">빌라 짐 픽업 · 짐바란 출발<span class="chev">▸</span></div><div class="note">보관 마감 1시간 전 · 이동 30–40분</div><div class="detail">그랩 불러 빌라(차량 진입 18시까지 가능)에서 짐 싣고 짐바란으로. 발리 마지막 이동이에요.</div></div></li>
+      <li><div class="t hl">17:45</div><div class="dot"></div><div><div class="what">짐바란 선셋 씨푸드 <span class="badge">마무리</span><span class="chev">▸</span></div><div class="note">일몰 18:10 전후 · 해변 명당 잡기</div><div class="detail">해변 모래 위 테이블에서 숯불 해산물 — 생선·새우·랍스터·조개를 무게 단위로 골라 구워줘요. 일몰 직전 도착이라 명당 잡기 좋고, 석양 → 노을 → 야경으로 이어지는 발리 마지막 저녁. 캐리어는 식당에 말하면 옆에 둘 수 있어요.</div></div></li>
+      <li><div class="t">19:45</div><div class="dot"></div><div><div class="what">공항 출발<span class="chev">▸</span></div><div class="note">짐바란 → 공항 10~15분</div><div class="detail">밥 먹은 자리에서 공항까지 금방이에요. 그랩 또는 식당에 택시 요청.</div></div></li>
+      <li><div class="t">20:00</div><div class="dot"></div><div><div class="what">공항 도착 · 체크인<span class="chev">▸</span></div><div class="note">23시 출발 기준 3시간 전</div><div class="detail">체크인·출국 수속 후 면세점 여유. 23시 발리 출발 → 비행 7시간 + 시차 1시간 = 인천 익일 아침 7시 전후 도착. 도착 다음 날 일정은 여유 있게.</div></div></li>
+    </ul>
+  </section>
+
+  <!-- 예약 체크리스트 -->
+  <section class="panel">
+    <h2><span class="num">✓</span> 예약 체크리스트</h2>
+    <ol class="check">
+      <li class="done"><b>웰컴 투어: 바투르산 일출 지프 (한국인 가이드)</b><small>예약 완료 · 항공편명 전달 + 공항 픽업 시각 확인 + 드랍 Pertiwi</small></li>
+      <li class="done"><b>우붓 숙소: 뻐르띠위 리조트</b><small>9/15–18 · 3박 · 체크인 14시, 12시부터 짐 보관</small></li>
+      <li class="done"><b>스미냑 숙소: 까유 아야 풀빌라</b><small>9/18–21 · 3박 · 15시 체크인 · 차량 진입 06~18시, 그 외 50m 픽업포인트 Gg. Beji 43b</small></li>
+      <li class="done"><b>우붓 개인 투어 차량 (9/16)</b><small>예약 완료 · 코스 지정 메시지 전송, 09시 Pertiwi 픽업 · 입장료 별도</small></li>
+      <li class="done"><b>우붓 올데이 액티비티 투어 (9/17)</b><small>예약 완료 · ATV→래프팅→크레티야 11시간 · 픽업 Pertiwi, 드랍 Bebek Bengil</small></li>
+      <li><b>9/18 이동일 차량</b><small>같은 판매자에 추가 예약 문의 중 · 10시 Pertiwi → 따나롯 → 짱구 → 15시 빌라</small></li>
+      <li class="done"><b>울루와뚜 선셋 투어 (9/20)</b><small>예약 완료 · 사원 입장권+께짝 1부 티켓 포함 · 14:30 픽업(문의로 재확인) · 한국어 가이드</small></li>
+      <li><b>출국일 스파 (9/21)</b><small>14:30 · 샤워 시설 있는 곳으로 며칠 전 예약</small></li>
+    </ol>
+  </section>
+
+  <!-- 준비 메모 -->
+  <section class="panel">
+    <h2><span class="num">✈</span> 출발 전 메모</h2>
+    <div class="memo">
+      <span>바람막이 기내 가방에</span>
+      <span>All Indonesia QR (72시간 전)</span>
+      <span>관광세 Love Bali 사전 결제</span>
+      <span>eSIM 미리 준비</span>
+      <span>무비자 30일 · 귀국편 항공권</span>
+      <span>방수팩 · 샌들</span>
+      <span>속건 옷 · 수영복</span>
+    </div>
+  </section>
+
+  <!-- 맛집 가이드 -->
+  <section class="panel">
+    <h2><span class="num">🍽</span> 숙소 주변 맛집 가이드</h2>
+    <div class="eats-head">우붓 · 뻐르띠위 도보권</div>
+    <ul class="eats">
+      <li><b>베벡 벵일 (Bebek Bengil)</b><span class="where">도보 8~10분</span><small>1990년부터의 크리스피 덕 원조 "더티덕". 논을 낀 정원 정자에서 먹는 저녁이 백미 — 3일차 저녁으로 잡아둔 곳이에요.</small></li>
+      <li><b>카페 와얀 (Cafe Wayan)</b><span class="where">도보 3분</span><small>몽키포레스트 거리의 정원 딸린 발리 가정식 노포. 나시짬뿌르와 홈메이드 케이크가 유명해서 식사와 디저트 다 좋아요.</small></li>
+      <li><b>이부 오카 (Ibu Oka)</b><span class="where">도보 10분</span><small>우붓 왕궁 옆 바비굴링(새끼돼지 바비큐) 명가. 점심 장사 위주라 낮에 가야 하고, 오후엔 품절되기도 해요.</small></li>
+      <li><b>와룽 뽄독 마두 (Warung Pondok Madu)</b><span class="where">도보 5분</span><small>달콤짭짤한 폭립 맛집. 양 많고 가성비 좋아 액티비티로 허기진 날 저녁으로 제격이에요.</small></li>
+      <li><b>와룽 비아비아 (Warung Biah Biah)</b><span class="where">도보 7분</span><small>로컬 가격의 발리 가정식. 한 접시 2~3만 루피아대라 여러 개 시켜 나눠 먹기 좋아요.</small></li>
+    </ul>
+    <div class="eats-head">스미냑 · 빌라 도보권</div>
+    <ul class="eats">
+      <li><b>라 파벨라 (La Favela)</b><span class="where">도보 3~4분</span><small>정글·빈티지 인테리어로 유명한 빌라 옆 대표 스팟. 저녁엔 레스토랑, 밤엔 바로 변신 — 늦은 저녁 1순위예요.</small></li>
+      <li><b>시스터필즈 (Sisterfields)</b><span class="where">도보 5~10분</span><small>호주식 브런치 성지. 리코타 팬케이크와 스매시드 아보가 시그니처 — 5일차 브런치로 추천해둔 곳.</small></li>
+      <li><b>모텔 멕시콜라 (Motel Mexicola)</b><span class="where">도보 8분</span><small>타코와 마가리타의 알록달록 멕시칸. 분위기가 흥겨워서 늦은 저녁+한잔 무드에 딱이에요.</small></li>
+      <li><b>마데스 와룽 (Made's Warung)</b><span class="where">도보 8~10분</span><small>1969년부터의 스미냑 터줏대감. 나시고렝·사떼 같은 인니 음식을 부담 없는 가격에, 밤늦게까지 해요.</small></li>
+      <li><b>마마산 (Mama San)</b><span class="where">그랩 5분</span><small>모던 아시안 파인다이닝. 분위기 내고 싶은 저녁(5일차 후보)에 어울리고, 당일 왓츠앱 예약 가능해요.</small></li>
+      <li><b>라 루치올라 (La Lucciola)</b><span class="where">도보 15분</span><small>해변 바로 앞 이탈리안. 파도 소리 들으며 먹는 선셋 디너 명소예요.</small></li>
+      <li><b>고젝 GoFood 배달</b><span class="where">빌라에서</span><small>나가기 귀찮은 밤엔 배달 앱으로. 호스트가 준 구글맵 핀을 주소로 찍고, 기사가 골목을 못 찾으면 채팅으로 픽업포인트에서 만나면 돼요.</small></li>
+    </ul>
+  </section>
+
+  <footer>9/14 밤 도착 · 9/21 밤 출발 · 숙박 6박 (우붓 3 + 스미냑 3) · 항목을 누르면 상세 설명</footer>
+</main>
+
+<script>
+document.querySelectorAll('.tl li').forEach(function(li){
+  li.addEventListener('click',function(){ li.classList.toggle('open'); });
+});
+</script>
+
+</body>
+</html>
