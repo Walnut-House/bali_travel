@@ -119,6 +119,22 @@
   ul.eats b{font-weight:700;}
   ul.eats .where{display:inline-block;font-size:10.5px;font-weight:700;color:#fff;background:#8A857B;border-radius:6px;padding:1px 7px;margin-left:6px;vertical-align:1px;}
   ul.eats small{display:block;color:var(--sub);font-size:11.5px;margin-top:2px;}
+  ul.todo{list-style:none;}
+  ul.todo>li{display:grid;grid-template-columns:22px 1fr;column-gap:10px;padding:0 0 12px 0;font-size:13px;}
+  ul.todo>li:last-child{padding-bottom:2px;}
+  ul.todo input{width:18px;height:18px;margin-top:1px;accent-color:var(--ubud);}
+  ul.todo label{cursor:pointer;}
+  ul.todo b{font-weight:700;}
+  ul.todo small{display:block;color:var(--sub);font-size:11.5px;margin-top:2px;line-height:1.55;}
+  ul.todo li:has(input:checked) b{text-decoration:line-through;color:var(--sub);}
+  ul.todo li:has(input:checked) small{opacity:.55;}
+  table.tipt{width:100%;border-collapse:collapse;font-size:12.5px;}
+  table.tipt th{font-size:11px;font-weight:800;color:var(--sub);text-align:left;padding:0 6px 8px 0;letter-spacing:.04em;}
+  table.tipt td{padding:8px 6px 8px 0;border-top:1px solid var(--line);vertical-align:top;line-height:1.45;}
+  table.tipt td.amt{white-space:nowrap;font-weight:700;color:var(--ubud);}
+  table.tipt td.day{white-space:nowrap;color:var(--sub);font-size:11.5px;}
+  .tip-sum{margin-top:12px;padding:10px 12px;background:#F7F3EA;border-radius:10px;font-size:12.5px;line-height:1.55;}
+  .tip-sum b{color:var(--ubud);}
   footer{text-align:center;font-size:11px;color:var(--sub);padding:6px 16px 0;}
 </style>
 </head>
@@ -148,7 +164,7 @@
     <div class="trans"><span class="tr tr-tour">투어차량</span> 공항 픽업부터 우붓 도착까지 전 구간 (지프 환승 포함) · 우붓 도착 후 점심·저녁은 <span class="tr tr-walk">도보</span></div>
     <ul class="tl">
       <li><div class="t hl">23:00</div><div class="dot"></div><div><div class="what">공항 도착 · 입국<span class="chev">▸</span></div><div class="note">무비자 + All Indonesia QR 준비</div><div class="detail">한국 여권은 관광 30일 무비자(여권 유효기간 6개월+, 귀국편 필요). All Indonesia 통합신고는 출발 72시간 전부터 allindonesia.imigrasi.go.id에서 무료 작성 후 QR 저장. 관광세 15만 루피아는 Love Bali에서 사전 결제. 수속 끝나면 기내 가방에서 바람막이 꺼내두기 — 새벽 산은 담요 빌릴 만큼 추워요.</div></div></li>
-      <li><div class="t">02:00</div><div class="dot"></div><div><div class="what">투어팀 공항 픽업<span class="chev">▸</span></div><div class="note">표준 일정 기준 · 정확한 시각은 판매자 답변으로</div><div class="detail">도착 게이트에서 사인보드 미팅. 캐리어는 투어 차량에 실은 채 하루 종일 동반돼요. 표준이 새벽 2시 픽업이라 대기가 생기면 공항 카페·편의점에서 시간 보내기. 판매자 답변으로 확정된 시각이 우선입니다.</div></div></li>
+      <li><div class="t">01:40</div><div class="dot"></div><div><div class="what">투어팀 공항 픽업<span class="chev">▸</span></div><div class="note">확정 시각 · 도착 게이트 사인보드 미팅</div><div class="detail">23시 착륙 → 입국·짐 찾기 끝나면 자정쯤. 픽업까지 1시간 반 정도 여유가 있으니 도착층 카페·24시간 편의점에서 쉬고, 이 시간에 공항 ATM에서 트래블월렛으로 첫 현금(100~150만 루피아)을 뽑아두면 딱이에요. 01:40 도착 게이트 앞 사인보드 미팅, 캐리어는 투어 차량에 실은 채 하루 종일 동반.</div></div></li>
       <li><div class="t">04:15</div><div class="dot"></div><div><div class="what">지프 탑승<span class="chev">▸</span></div><div class="note">04:00 베이스 도착 → 4륜 지프 환승</div><div class="detail">낀따마니 베이스까지 차로 2시간 이동 후 4륜 지프로 갈아타요. 등산은 전혀 없고, 오프로드로 덜컹거리며 올라가는 것 자체가 재미예요. 04:45 일출 포인트 도착.</div></div></li>
       <li><div class="t hl">06:00</div><div class="dot"></div><div><div class="what">바뚜르 일출 <span class="badge">하이라이트</span><span class="chev">▸</span></div><div class="note">05:00 산 위 조식 후 일출 감상</div><div class="detail">해발 1,560m 전망대에서 화산 호수 위로 뜨는 해를 봐요. 일출 전 산 위에서 조식(계란·빵·바나나·따뜻한 커피/차)이 나오고, 9월은 건기라 일출 성공률이 높은 시기. 긴팔+바람막이 필수, 새벽 기온이 한 자릿수까지 떨어질 수 있어요.</div></div></li>
       <li><div class="t">07:30</div><div class="dot"></div><div><div class="what">블랙라바<span class="chev">▸</span></div><div class="note">검은 용암 벌판 · 08:15까지 촬영</div><div class="detail">과거 분화 때 흘러내린 용암이 굳은 검은 벌판이에요. 지프 위 점프샷, 보닛샷 등 가이드가 인생샷을 찍어주는 공식 포토타임 — 아침 햇살에 검은 지형과 바뚜르산이 배경으로 깔려 사진이 정말 잘 나와요.</div></div></li>
@@ -276,8 +292,9 @@
     <ul class="tl">
       <li><div class="t">오전</div><div class="dot"></div><div><div class="what">수영장 · 해변 여유<span class="chev">▸</span></div><div class="note">마지막 물놀이</div><div class="detail">프라이빗 풀에서 느긋한 마지막 아침. 체크아웃 전까지 빌라를 마음껏 누리세요.</div></div></li>
       <li><div class="t">11:30</div><div class="dot"></div><div><div class="what">체크아웃 · 짐 보관<span class="chev">▸</span></div><div class="note">보관은 18시까지 가능</div><div class="detail">짐 맡기고 몸만 가볍게. 보관 마감이 18시라 오후 일정 후 17시에 픽업하면 1시간 여유가 있어요.</div></div></li>
-      <li><div class="t">12:30</div><div class="dot"></div><div><div class="what">점심 · 스미냑 쇼핑<span class="chev">▸</span></div><div class="note">까유 아야 부티크 거리</div><div class="detail">빌라 앞 잇 스트리트에서 점심 먹고 부티크·편집숍 쇼핑. 기념품은 커피(루왁·발리 원두), 코코넛 제품, 라탄 가방이 인기. 대량 기념품은 크리스나 매장이 저렴해요.</div></div></li>
-      <li><div class="t">14:30</div><div class="dot"></div><div><div class="what">스파 2시간 + 샤워<span class="chev">▸</span></div><div class="note">비행 전 개운하게</div><div class="detail">샤워 시설 있는 스파로 사전 예약 필수("공항 가기 전 샤워 가능한가요?" 확인). 2시간 발리니즈 마사지 + 샤워로 몸 리셋하고 마른 옷으로 갈아입으면 밤 비행이 훨씬 편해요.</div></div></li>
+      <li><div class="t">12:00</div><div class="dot"></div><div><div class="what">점심<span class="chev">▸</span></div><div class="note">까유 아야 거리 · 13:30까지</div><div class="detail">빌라 앞 잇 스트리트에서 여유 있게 점심. 13:40까지 스파에 도착해야 하니 13:20쯤 일어나 남쪽으로 걸어 내려가요(도보 10분).</div></div></li>
+      <li><div class="t hl">14:00</div><div class="dot"></div><div><div class="what">이든 스파 시그니처 90분 + 샤워<span class="chev">▸</span></div><div class="note">13:40 도착 · Jl. Drupadi, 빌라 남쪽 도보 10분</div><div class="detail">한국인 운영 스파, 마이리얼트립 예약(인당 4.5만 원). 오일 선택·족욕이 있어 20분 일찍 도착. 마사지 후 샤워하고 마른 옷으로 갈아입으면 밤 비행이 훨씬 편해요. 짐 보관도 되는 곳이라 비상시 백업 가능.</div></div></li>
+      <li><div class="t">15:45</div><div class="dot"></div><div><div class="what">마무리 쇼핑 · 카페<span class="chev">▸</span></div><div class="note">스파에서 빌라 방향으로 올라오며</div><div class="detail">개운한 몸으로 까유 아야 부티크·편집숍 마무리 쇼핑. 기념품은 커피(루왁·발리 원두), 코코넛 제품, 라탄 가방이 인기이고, 대량 기념품은 크리스나 매장이 저렴해요. 16:45까지 빌라 근처로.</div></div></li>
       <li><div class="t">17:00</div><div class="dot"></div><div><div class="what">빌라 짐 픽업 · 짐바란 출발<span class="chev">▸</span></div><div class="note">보관 마감 1시간 전 · 이동 30–40분</div><div class="detail">그랩 불러 빌라(차량 진입 18시까지 가능)에서 짐 싣고 짐바란으로. 발리 마지막 이동이에요.</div></div></li>
       <li><div class="t hl">17:45</div><div class="dot"></div><div><div class="what">짐바란 선셋 씨푸드 <span class="badge">마무리</span><span class="chev">▸</span></div><div class="note">일몰 18:10 전후 · 해변 명당 잡기</div><div class="detail">해변 모래 위 테이블에서 숯불 해산물 — 생선·새우·랍스터·조개를 무게 단위로 골라 구워줘요. 일몰 직전 도착이라 명당 잡기 좋고, 석양 → 노을 → 야경으로 이어지는 발리 마지막 저녁. 캐리어는 식당에 말하면 옆에 둘 수 있어요.</div></div></li>
       <li><div class="t">19:45</div><div class="dot"></div><div><div class="what">공항 출발<span class="chev">▸</span></div><div class="note">짐바란 → 공항 10~15분</div><div class="detail">밥 먹은 자리에서 공항까지 금방이에요. 그랩 또는 식당에 택시 요청.</div></div></li>
@@ -289,29 +306,32 @@
   <section class="panel">
     <h2><span class="num">✓</span> 예약 체크리스트</h2>
     <ol class="check">
-      <li class="done"><b>웰컴 투어: 바투르산 일출 지프 (한국인 가이드)</b><small>예약 완료 · 항공편명 전달 + 공항 픽업 시각 확인 + 드랍 Pertiwi</small></li>
+      <li class="done"><b>웰컴 투어: 바투르산 일출 지프 (한국인 가이드)</b><small>예약 완료 · 공항 픽업 01:40 확정 · 드랍 Pertiwi</small></li>
       <li class="done"><b>우붓 숙소: 뻐르띠위 리조트</b><small>9/15–18 · 3박 · 체크인 14시, 12시부터 짐 보관</small></li>
       <li class="done"><b>스미냑 숙소: 까유 아야 풀빌라</b><small>9/18–21 · 3박 · 15시 체크인 · 차량 진입 06~18시, 그 외 50m 픽업포인트 Gg. Beji 43b</small></li>
       <li class="done"><b>우붓 개인 투어 차량 (9/16)</b><small>예약 완료 · 코스 지정 메시지 전송, 09시 Pertiwi 픽업 · 입장료 별도</small></li>
       <li class="done"><b>우붓 올데이 액티비티 투어 (9/17)</b><small>예약 완료 · ATV→래프팅→크레티야 11시간 · 픽업 Pertiwi, 드랍 Bebek Bengil</small></li>
-      <li><b>9/18 이동일 차량</b><small>같은 판매자에 추가 예약 문의 중 · 10시 Pertiwi → 따나롯 → 짱구 → 15시 빌라</small></li>
+      <li class="done"><b>9/18 이동일 차량</b><small>판매자 '가능' 확답(8/28) · 투어 전날 왓츠앱/카톡으로 연락 예정 · 가격은 사전 확인 권장, 미확인 시 16일 기사에게 직접</small></li>
       <li class="done"><b>울루와뚜 선셋 투어 (9/20)</b><small>예약 완료 · 사원 입장권+께짝 1부 티켓 포함 · 14:30 픽업(문의로 재확인) · 한국어 가이드</small></li>
-      <li><b>출국일 스파 (9/21)</b><small>14:30 · 샤워 시설 있는 곳으로 며칠 전 예약</small></li>
+      <li class="done"><b>출국일 스파 (9/21)</b><small>예약 완료 · 이든 스파(스미냑) · 14:00 시그니처 패키지 90분 · 13:40 도착</small></li>
     </ol>
   </section>
 
-  <!-- 준비 메모 -->
+  <!-- 출발 전 할 일 -->
   <section class="panel">
-    <h2><span class="num">✈</span> 출발 전 메모</h2>
-    <div class="memo">
-      <span>바람막이 기내 가방에</span>
-      <span>All Indonesia QR (72시간 전)</span>
-      <span>관광세 Love Bali 사전 결제</span>
-      <span>eSIM 미리 준비</span>
-      <span>무비자 30일 · 귀국편 항공권</span>
-      <span>방수팩 · 샌들</span>
-      <span>속건 옷 · 수영복</span>
-    </div>
+    <h2><span class="num">✈</span> 출발 전 할 일</h2>
+    <ul class="todo">
+      <li><input type="checkbox" id="td1"><label for="td1"><b>관광세 결제 (Love Bali)</b><small>공식 사이트 lovebali.baliprov.go.id 또는 Love Bali 앱에서 여권번호·도착일 입력 후 카드 결제 → QR을 폰에 저장. 공항 카운터에서도 낼 수 있지만 밤 11시 도착에 줄 서는 건 피하기. 공항·관광지에서 랜덤 확인하며, 1인 15만 루피아씩 두 분 각각 결제.</small></label></li>
+      <li><input type="checkbox" id="td2"><label for="td2"><b>All Indonesia 입국 QR 작성</b><small>발리 도착 72시간 전인 9/11부터 allindonesia.imigrasi.go.id에서 무료 작성 — 싱가포르 체류 중에 하기. 폰 알람 걸어두기.</small></label></li>
+      <li><input type="checkbox" id="td3"><label for="td3"><b>바람막이·긴팔 → 기내 가방</b><small>1일차 바뚜르 새벽 산 위 기온 10~15도 + 오픈 지프 바람. 담요 빌릴 만큼 춥다는 후기 다수. 싱가포르에서 짐 쌀 때 캐리어 깊숙이 넣지 않기.</small></label></li>
+      <li><input type="checkbox" id="td4"><label for="td4"><b>상비약 파우치</b><small>지사제·정장제(물갈이 설사 대비), 해열진통제, 밴드, 벌레 물린 데 연고까지 작은 파우치 하나면 충분. 현지 약국은 성분·언어 문제로 급할 때 곤란.</small></label></li>
+      <li><input type="checkbox" id="td5"><label for="td5"><b>선크림 SPF50</b><small>적도 근처라 자외선 지수 11+ 일상. 외출 때마다 바르고 물놀이 후 재도포. 흐려도 바르기.</small></label></li>
+      <li><input type="checkbox" id="td6"><label for="td6"><b>모기 기피제</b><small>뎅기열 때문 — 발리 풍토병인데 백신도 치료제도 없어 걸리면 고열로 며칠 앓음. 우붓은 논·정글·물이 많아 모기가 많고 뎅기 모기는 낮에도 뭄. DEET 20~30%나 이카리딘 스프레이를 팔·다리에 뿌리는 습관. 저녁 야외 식사(논뷰 레스토랑, 짬뿌한 산책) 때 특히.</small></label></li>
+      <li><input type="checkbox" id="td7"><label for="td7"><b>수영복 2벌</b><small>매일 물에 들어가는 일정 — 2일차 폭포, 3일차 래프팅·크레티야 풀, 4일차 빌라 풀, 5일차 해변. 발리는 습도가 높아 젖은 수영복이 밤새 안 마르니 번갈아 입을 2벌.</small></label></li>
+      <li><input type="checkbox" id="td8"><label for="td8"><b>속건 옷 (기능성 소재)</b><small>폴리에스터·나일론 등산복·러닝 티셔츠류. 면은 젖으면 무겁고 안 마르고 냄새나지만 속건 소재는 30분이면 마름. 3일차엔 이 옷으로 래프팅·ATV를 그대로 버티기. 없으면 래시가드로 대체.</small></label></li>
+      <li><input type="checkbox" id="td9"><label for="td9"><b>버릴 옷 1벌 (ATV용)</b><small>발리 흙은 붉은 화산토라 흙탕물 얼룩이 세탁해도 안 빠짐. 낡은 티셔츠·반바지로 ATV 타고 끝나면 버리기. 속건 옷 중 낡은 걸로 하면 한 벌로 해결.</small></label></li>
+      <li><input type="checkbox" id="td10"><label for="td10"><b>방수팩 · 샌들 · 보조배터리</b><small>방수팩은 래프팅·폭포·해변용, 샌들은 물놀이·젖은 길용, 보조배터리는 기내 가방에.</small></label></li>
+    </ul>
   </section>
 
   <!-- 맛집 가이드 -->
@@ -335,6 +355,33 @@
       <li><b>라 루치올라 (La Lucciola)</b><span class="where">도보 15분</span><small>해변 바로 앞 이탈리안. 파도 소리 들으며 먹는 선셋 디너 명소예요.</small></li>
       <li><b>고젝 GoFood 배달</b><span class="where">빌라에서</span><small>나가기 귀찮은 밤엔 배달 앱으로. 호스트가 준 구글맵 핀을 주소로 찍고, 기사가 골목을 못 찾으면 채팅으로 픽업포인트에서 만나면 돼요.</small></li>
     </ul>
+  </section>
+
+  <!-- 팁 가이드 -->
+  <section class="panel">
+    <h2><span class="num">💸</span> 팁 가이드 (일정별)</h2>
+    <table class="tipt">
+      <thead><tr><th>날짜</th><th>상황</th><th>금액 (루피아)</th></tr></thead>
+      <tbody>
+        <tr><td class="day">9/15</td><td>웰컴 투어 가이드 + 기사 — 새벽 공항 픽업에 하루 종일 동행이라 넉넉히. 하차 때 가이드에게 한 번에</td><td class="amt">10~15만</td></tr>
+        <tr><td class="day">9/16</td><td>개인 투어 한국어 가이드 + 기사 (11시간). 저녁 식당 앞에서 헤어질 때</td><td class="amt">10~15만</td></tr>
+        <tr><td class="day">9/17</td><td>올데이 투어 가이드 + 기사. 드랍 때 가이드에게</td><td class="amt">10~15만</td></tr>
+        <tr><td class="day">9/17</td><td>ATV·래프팅 현지 인스트럭터 (각 1명) — 끝나고 팁 상자를 내밀거나 직접 요청하는 경우 많음</td><td class="amt">각 2만</td></tr>
+        <tr><td class="day">9/17</td><td>발마사지 60분 테라피스트</td><td class="amt">1~2만</td></tr>
+        <tr><td class="day">9/18</td><td>이동일 대절 기사 (5시간). 빌라 도착 때</td><td class="amt">5만</td></tr>
+        <tr><td class="day">9/19</td><td>스파 풀코스 테라피스트 (스크럽·플라워배스 포함이면)</td><td class="amt">5만</td></tr>
+        <tr><td class="day">9/19</td><td>해변 빈백·비치클럽 — 서비스 차지 포함, 팁 불필요</td><td class="amt">—</td></tr>
+        <tr><td class="day">9/20</td><td>울루와뚜 투어 가이드 + 기사</td><td class="amt">10만</td></tr>
+        <tr><td class="day">9/21</td><td>이든 스파 테라피스트 (90분) — 한국인 운영이라도 시술은 현지 테라피스트</td><td class="amt">3~5만</td></tr>
+        <tr><td class="day">9/21</td><td>짐바란 씨푸드 — 영수증에 서비스 차지(5~10%) 있으면 불필요, 없으면 거스름돈 정도</td><td class="amt">0~2만</td></tr>
+        <tr><td class="day">9/21</td><td>빌라 스태프 (조식·청소 있었다면) 체크아웃 때 한 번에</td><td class="amt">5~10만</td></tr>
+        <tr><td class="day">공통</td><td>레스토랑·카페 — 대부분 서비스 차지 포함, 영수증에 "Service"가 없으면 5~10% 또는 잔돈</td><td class="amt">0~2만</td></tr>
+        <tr><td class="day">공통</td><td>그랩·고젝 — 불필요 (앱 내 팁 기능은 선택)</td><td class="amt">—</td></tr>
+        <tr><td class="day">공통</td><td>호텔 짐 옮겨주는 직원, 하우스키핑(선택)</td><td class="amt">1~2만</td></tr>
+        <tr><td class="day">공통</td><td>사원·공연·입장료 — 팁 없음 (사롱 제공 포함)</td><td class="amt">—</td></tr>
+      </tbody>
+    </table>
+    <div class="tip-sum">여행 전체 팁 예산은 <b>약 70~85만 루피아 (6~7만 원, 2인 기준)</b>. 발리에서 팁은 의무가 아니라 "만족했을 때"의 표시라 금액이 부담스러울 것 없고, 위 금액은 한국인 여행자 평균 수준이에요. 요령은 <b>2만·5만 루피아권을 미리 챙겨두는 것</b> — ATM은 10만권만 나오니 편의점에서 물 사며 깨두세요. 봉투 없이 "Terima kasih(감사합니다)" 하며 손에 건네면 됩니다.</div>
   </section>
 
   <footer>9/14 밤 도착 · 9/21 밤 출발 · 숙박 6박 (우붓 3 + 스미냑 3) · 항목을 누르면 상세 설명</footer>
